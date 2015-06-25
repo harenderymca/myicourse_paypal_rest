@@ -903,7 +903,7 @@ module PayPal::SDK
         end
       end
 
-      class Invoice < Base
+      class Paypalinvoice < Base
         def self.load_members
           object_of :id, String
           object_of :number, String
@@ -912,7 +912,7 @@ module PayPal::SDK
           object_of :merchant_info, MerchantInfo
           array_of  :billing_info, BillingInfo
           object_of :shipping_info, ShippingInfo
-          array_of  :items, InvoiceItem
+          array_of  :items, Paypalinvoiceitem
           object_of :invoice_date, String
           object_of :payment_term, PaymentTerm
           object_of :discount, Cost
@@ -996,7 +996,7 @@ module PayPal::SDK
           def search(options)
             path = "v1/invoicing/search"
             response = api.post(path, options)
-            Invoices.new(response)
+            Paypalinvoices.new(response)
           end
 
           def find(resource_id)
@@ -1007,7 +1007,7 @@ module PayPal::SDK
 
           def get_all(options = {})
             path = "v1/invoicing/invoices/"
-            Invoices.new(api.get(path, options))
+            Paypalinvoices.new(api.get(path, options))
           end
         end
       end
@@ -1265,14 +1265,14 @@ module PayPal::SDK
         end
 
       end
-      class Invoices < Base
+      class Paypalinvoices < Base
         def self.load_members
           object_of :total_count, Integer
-          array_of  :invoices, Invoice
+          array_of  :paypalinvoices, Paypalinvoice
         end
       end
 
-      class InvoiceItem < Base
+      class Paypalinvoiceitem < Base
         def self.load_members
           object_of :name, String
           object_of :description, String
