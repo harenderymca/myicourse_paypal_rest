@@ -44,7 +44,7 @@ module PayPal::SDK
           object_of :payer, Payer
           object_of :payee, Payee
           object_of :cart, String
-          array_of  :transactions, Transaction
+          array_of  :paypaltransactions, PaypalTransaction
           array_of  :failed_transactions, Error
           object_of :payment_instruction, PaymentInstruction
           object_of :state, String
@@ -458,7 +458,7 @@ module PayPal::SDK
         end
       end
 
-      class Transaction < Base
+      class PaypalTransaction < Base
         def self.load_members
           object_of :amount, Amount
           object_of :payee, Payee
@@ -469,7 +469,7 @@ module PayPal::SDK
           object_of :item_list, ItemList
           object_of :purchase_unit_reference_id, String
           array_of  :related_resources, RelatedResources
-          array_of  :transactions, Transaction
+          array_of  :paypaltransactions, PaypalTransaction
         end
       end
 
