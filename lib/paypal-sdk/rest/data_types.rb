@@ -925,7 +925,7 @@ module PayPal::SDK
           object_of :merchant_memo, String
           object_of :logo_url, String
           object_of :total_amount, Currency
-          array_of  :payment_details, PaymentDetail
+          array_of  :payment_details, PaypalPaymentDetail
           array_of  :refund_details, RefundDetail
           object_of :metadata, Metadata
         end
@@ -963,7 +963,7 @@ module PayPal::SDK
         end
 
         def record_payment(payment_detail)
-          payment_detail = PaymentDetail.new(payment_detail) unless payment_detail.is_a? PaymentDetail
+          payment_detail = PaypalPaymentDetail.new(payment_detail) unless payment_detail.is_a? PaypalPaymentDetail
           path = "v1/invoicing/invoices/#{self.id}/record-payment"
           response = api.post(path, payment_detail.to_hash, http_header)
           self.merge!(response)
@@ -1423,7 +1423,7 @@ module PayPal::SDK
         end
       end
 
-      class PaymentDetail < Base
+      class PaypalPaymentDetail < Base
         def self.load_members
           object_of :type, String
           object_of :transaction_id, String
